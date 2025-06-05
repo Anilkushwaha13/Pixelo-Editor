@@ -2,7 +2,7 @@ package com.CodeCrafters.Pixelo.dto;
 
 import java.util.List;
 
-public class imageRequest {
+public class ImageRequest {
     private List<String> images;
 
     public List<String> getImages() {

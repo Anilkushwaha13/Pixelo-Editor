@@ -1,6 +1,6 @@
 package com.CodeCrafters.Pixelo.dto;
 
-public class userRequest {
+public class UserRequest {
     private String userName;
     private String email;
     private String password;

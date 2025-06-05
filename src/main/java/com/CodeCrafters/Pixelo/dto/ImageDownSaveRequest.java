@@ -1,6 +1,6 @@
 package com.CodeCrafters.Pixelo.dto;
 
-public class imageDownSaveRequest {
+public class ImageDownSaveRequest {
     private String image;
 
     public String getImage() {

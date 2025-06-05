@@ -3,7 +3,7 @@ package com.CodeCrafters.Pixelo.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class imageRequestwithQualityType {
+public class ImageRequestwithQualityType {
         private List<String> images = new ArrayList<>();
         private String qualityOrType;
 

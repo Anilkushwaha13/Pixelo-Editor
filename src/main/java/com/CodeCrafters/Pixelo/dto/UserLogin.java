@@ -1,6 +1,6 @@
 package com.CodeCrafters.Pixelo.dto;
 
-public class userLogin {
+public class UserLogin {
 
     private String email;
     private String password;

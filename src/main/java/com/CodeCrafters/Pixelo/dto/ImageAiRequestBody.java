@@ -1,6 +1,6 @@
 package com.CodeCrafters.Pixelo.dto;
 
-public class imageAiRequestBody {
+public class ImageAiRequestBody {
     public String image;
     public  String message;
 
