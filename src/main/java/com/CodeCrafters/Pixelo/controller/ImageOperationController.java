@@ -1,6 +1,8 @@
 package com.CodeCrafters.Pixelo.controller;
 
+import com.CodeCrafters.Pixelo.dto.ImageDownSaveRequest;
 import com.CodeCrafters.Pixelo.dto.ImageRequestwithQualityType;
+import com.CodeCrafters.Pixelo.service.BgRemover;
 import com.CodeCrafters.Pixelo.service.ImageOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,6 +22,9 @@ public class ImageOperationController {
 
     @Autowired
     ImageOperation imageOperation;
+
+    @Autowired
+    BgRemover bgRemover;
 
     @PostMapping("/get-compressed-quality")
     public ResponseEntity<Map<String, List<String>>> compressImageWithQuality(@RequestBody ImageRequestwithQualityType request){
@@ -43,5 +48,18 @@ public class ImageOperationController {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(response);
     }
+
+    @PostMapping("/get-bgRemoved")
+    public ResponseEntity<?> BgRemoveImage(@RequestBody ImageDownSaveRequest request){
+        Map<String,String> response = new HashMap<>();
+        response.put("Image",bgRemover.getBgRemoved(request.getImage()));
+
+        return ResponseEntity.ok()
+                .header("X-Total-Images", String.valueOf(0))
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(response);
+    }
+
+
 
 }

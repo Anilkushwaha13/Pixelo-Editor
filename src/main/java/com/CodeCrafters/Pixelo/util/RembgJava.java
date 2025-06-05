@@ -12,7 +12,7 @@ import java.util.Collections;
 public class RembgJava {
 
     public static BufferedImage getBgRemoved(BufferedImage inputImage) throws  Exception{
-        String modelPath = "u2net.onnx";
+        String modelPath = "src/main/resources/u2net.onnx";
         BufferedImage resized = resizeTo320x320(inputImage); // Resize to 320x320
         float[] inputTensorData = convertImageToTensor(resized); // Convert to NCHW float[]
 
