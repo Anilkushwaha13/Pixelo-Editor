@@ -1,15 +1,15 @@
 package com.CodeCrafters.Pixelo.dto;
 
 public class ImageAiRequestBody {
-    public String image;
+    public String imageData;
     public  String message;
 
-    public String getImage() {
-        return image;
+    public String getImageData() {
+        return imageData;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
     }
 
     public String getMessage() {

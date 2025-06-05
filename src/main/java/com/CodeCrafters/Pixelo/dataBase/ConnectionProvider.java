@@ -6,8 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 
 @Component
 public class ConnectionProvider {

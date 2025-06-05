@@ -17,7 +17,7 @@ public class Base64Code {
             return "data:image/"+formateName+";base64,"+Image1;
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("encoder: "+e.getMessage());
             return null;
         }
 
