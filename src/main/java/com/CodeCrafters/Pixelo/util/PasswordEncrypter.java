@@ -2,7 +2,7 @@ package com.CodeCrafters.Pixelo.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class passwordEncrypter {
+public class PasswordEncrypter {
 
     public static String hashPassword(String password){
         String salt = BCrypt.gensalt(7);

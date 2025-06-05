@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class imageTypeConvertor {
+public class ImageTypeConvertor {
 
     private static void getplugin(){
         ImageIO.scanForPlugins();

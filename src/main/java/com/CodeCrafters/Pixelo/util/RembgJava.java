@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.nio.FloatBuffer;
 import java.util.Collections;
 
-public class rembgJava {
+public class RembgJava {
 
     public static BufferedImage getBgRemoved(BufferedImage inputImage) throws  Exception{
         String modelPath = "u2net.onnx";

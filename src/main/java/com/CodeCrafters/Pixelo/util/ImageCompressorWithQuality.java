@@ -9,7 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Iterator;
 
-public class imageCompressorWithQuality {
+public class ImageCompressorWithQuality {
 
     public static BufferedImage getCompress(BufferedImage img , String imageFormate, float quality) {
         try {

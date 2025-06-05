@@ -6,7 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
 
-public class base64Code {
+public class Base64Code {
 
     public static String getEncodeImage(BufferedImage image, String formateName){
 

@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.Base64;
 import java.util.List;
 
-public class pdfMaker {
+public class PdfMaker {
 
     public static byte[] makePdf(List<String> base64Image){
         return getPdf(base64Image);
@@ -34,7 +34,6 @@ public class pdfMaker {
                 ImageData image = ImageDataFactory.create(imageBytes);
 
                 Image img = new Image(image);
-                System.out.println(img);
                 img.setAutoScaleHeight(true);
                 img.setAutoScaleWidth(true);
 
