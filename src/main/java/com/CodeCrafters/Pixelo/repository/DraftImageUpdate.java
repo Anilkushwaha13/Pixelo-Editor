@@ -1,11 +1,12 @@
 package com.CodeCrafters.Pixelo.repository;
 
-import com.CodeCrafters.Pixelo.dataBase.ConnectionProvider;
+
 import com.CodeCrafters.Pixelo.exception.PixeloException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.imageio.ImageIO;
+import javax.sql.DataSource;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.sql.*;
@@ -16,12 +17,13 @@ import java.util.Map;
 public class DraftImageUpdate {
 
     @Autowired
-    ConnectionProvider connectionProvider;
+    private DataSource dataSource;
 
     public boolean draftImage(String userName,String type,byte[] bytes){
+        Connection con = null;
         PreparedStatement stat = null;
-        try(Connection con = connectionProvider.dataSource().getConnection()){
-
+        try{
+            con = dataSource.getConnection();
             String sql1 = "SELECT  COUNT(*) count  FROM appusers.draftimage where email = ?";
             stat = con.prepareStatement(sql1);
             stat.setString(1,userName);
@@ -51,6 +53,7 @@ public class DraftImageUpdate {
         finally {
             try {
                 stat.close();
+                con.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -58,9 +61,11 @@ public class DraftImageUpdate {
     }
 
     public Map<Integer, BufferedImage> getDraftImage(String userName){
+        Connection con = null;
         PreparedStatement stat = null;
         Map<Integer,BufferedImage> image= new HashMap<>();
-        try(Connection con = connectionProvider.dataSource().getConnection()) {
+        try {
+            con = dataSource.getConnection();
             String sql = "SELECT * FROM appusers.draftImage where email=?;";
             stat = con.prepareStatement(sql);
             stat.setString(1,userName);
@@ -78,6 +83,7 @@ public class DraftImageUpdate {
         finally {
             try {
                 stat.close();
+                con.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -86,8 +92,10 @@ public class DraftImageUpdate {
     }
 
     public boolean deleteDraftImage(String email,int id){
+        Connection con = null;
         PreparedStatement stat = null;
-        try(Connection con = connectionProvider.dataSource().getConnection()) {
+        try{
+            con = dataSource.getConnection();
             String sql = "Delete FROM appusers.draftImage where email=? and id = ?;";
             stat = con.prepareStatement(sql);
             stat.setString(1,email);
@@ -103,6 +111,7 @@ public class DraftImageUpdate {
         finally {
             try {
                 stat.close();
+                con.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

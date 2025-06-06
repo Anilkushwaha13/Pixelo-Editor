@@ -1,9 +1,9 @@
 package com.CodeCrafters.Pixelo.repository;
 
-import com.CodeCrafters.Pixelo.dataBase.ConnectionProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,11 +15,13 @@ import java.util.Map;
 public class LoginUser {
 
     @Autowired
-    ConnectionProvider connectionProvider;
+    private DataSource dataSource;
 
     public Map<String,String> getLogin(String Email){
+        Connection con = null;
         PreparedStatement stat = null;
-        try(Connection con = connectionProvider.dataSource().getConnection()){
+        try{
+             con =dataSource.getConnection();
             String sql = "Select * From appuser where email=? ";
             stat = con.prepareStatement(sql);
             stat.setString(1,Email);
@@ -42,6 +44,7 @@ public class LoginUser {
         finally {
             try {
                 stat.close();
+                con.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

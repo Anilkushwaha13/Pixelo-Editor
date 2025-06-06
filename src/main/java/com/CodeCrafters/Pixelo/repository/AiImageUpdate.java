@@ -1,10 +1,12 @@
 package com.CodeCrafters.Pixelo.repository;
 
-import com.CodeCrafters.Pixelo.dataBase.ConnectionProvider;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import javax.imageio.ImageIO;
+import javax.sql.DataSource;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.sql.Connection;
@@ -17,11 +19,13 @@ import java.util.ArrayList;
 public class AiImageUpdate {
 
     @Autowired
-    ConnectionProvider connectionProvider;
+    private DataSource dataSource;
 
     public boolean updateImage(String userName,String type,byte[] bytes) {
+        Connection con= null;
         PreparedStatement stat = null;
-        try (Connection con = connectionProvider.dataSource().getConnection()) {
+        try  {
+            con = dataSource.getConnection();
             String sql = "insert into imageai values (?,?,?,?);";
             stat = con.prepareStatement(sql);
             stat.setString(1, userName);
@@ -39,6 +43,7 @@ public class AiImageUpdate {
         } finally {
             try {
                 stat.close();
+                con.close();
             } catch (Exception e) {
                 System.out.println("error:" + e);
             }
@@ -46,11 +51,13 @@ public class AiImageUpdate {
     }
 
     public ArrayList<BufferedImage> getAiImage(int req){
+        Connection con = null;
         PreparedStatement stat = null;
         int image = 10;
         int offset = req * image;
         ArrayList<BufferedImage> list = new ArrayList<>();
-        try(Connection con = connectionProvider.dataSource().getConnection()) {
+        try {
+            con = dataSource.getConnection();
             String sql = "SELECT * FROM appusers.imageai limit ? offset ?;";
             stat = con.prepareStatement(sql);
             stat.setInt(1,image);
@@ -68,6 +75,7 @@ public class AiImageUpdate {
         } finally {
             try {
                 stat.close();
+                con.close();
 
             } catch (Exception e) {
                 System.out.println("error:" + e);
