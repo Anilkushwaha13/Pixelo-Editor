@@ -1,7 +1,6 @@
 package com.CodeCrafters.Pixelo.controller;
 
 import com.CodeCrafters.Pixelo.dto.UserRequest;
-import com.CodeCrafters.Pixelo.exception.PixeloException;
 import com.CodeCrafters.Pixelo.repository.DatabaseUpdate;
 import com.CodeCrafters.Pixelo.service.JWTToken;
 import jakarta.servlet.http.HttpServletRequest;

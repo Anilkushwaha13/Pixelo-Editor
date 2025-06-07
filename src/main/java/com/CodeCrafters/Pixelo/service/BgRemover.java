@@ -3,10 +3,9 @@ package com.CodeCrafters.Pixelo.service;
 import com.CodeCrafters.Pixelo.util.Base64Code;
 import com.CodeCrafters.Pixelo.util.RembgJava;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 @Service
 public class BgRemover {
