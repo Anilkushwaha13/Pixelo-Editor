@@ -1,5 +1,5 @@
 # Use Eclipse Temurin Java 17 base image
-FROM eclipse-temurin:17-jdk-jammy as build
+FROM openjdk:17-jdk-slim as build
 
 # Create app directory
 WORKDIR /app
