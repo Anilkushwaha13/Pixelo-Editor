@@ -33,3 +33,9 @@ build/
 .vscode/
 
 src/main/resources/u2net.onnx
+
+node_modules
+frontend/
+target/
+*.iml
+*.log
