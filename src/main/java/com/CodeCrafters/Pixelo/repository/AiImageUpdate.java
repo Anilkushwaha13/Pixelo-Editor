@@ -57,7 +57,7 @@ public class AiImageUpdate {
         ArrayList<BufferedImage> list = new ArrayList<>();
         try {
             con = dataSource.getConnection();
-            String sql = "SELECT * FROM appusers.imageai limit ? offset ?;";
+            String sql = "SELECT * FROM imageai limit ? offset ?;";
             stat = con.prepareStatement(sql);
             stat.setInt(1,image);
             stat.setInt(2,offset);

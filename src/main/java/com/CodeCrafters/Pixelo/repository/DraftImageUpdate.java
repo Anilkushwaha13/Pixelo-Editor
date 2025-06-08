@@ -24,7 +24,7 @@ public class DraftImageUpdate {
         PreparedStatement stat = null;
         try{
             con = dataSource.getConnection();
-            String sql1 = "SELECT  COUNT(*) count  FROM appusers.draftimage where email = ?";
+            String sql1 = "SELECT  COUNT(*) count  FROM draftimage where email = ?";
             stat = con.prepareStatement(sql1);
             stat.setString(1,userName);
             ResultSet rs = stat.executeQuery();
@@ -66,7 +66,7 @@ public class DraftImageUpdate {
         Map<Integer,BufferedImage> image= new HashMap<>();
         try {
             con = dataSource.getConnection();
-            String sql = "SELECT * FROM appusers.draftImage where email=?;";
+            String sql = "SELECT * FROM draftImage where email=?;";
             stat = con.prepareStatement(sql);
             stat.setString(1,userName);
             ResultSet result = stat.executeQuery();
@@ -96,7 +96,7 @@ public class DraftImageUpdate {
         PreparedStatement stat = null;
         try{
             con = dataSource.getConnection();
-            String sql = "Delete FROM appusers.draftImage where email=? and id = ?;";
+            String sql = "Delete FROM draftImage where email=? and id = ?;";
             stat = con.prepareStatement(sql);
             stat.setString(1,email);
             stat.setInt(2,id);
