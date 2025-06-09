@@ -8,7 +8,7 @@ WORKDIR /app
 RUN mkdir -p /app/models
 
 # 2. Copy ONLY the model file (not in JAR)
-COPY src/main/models/u2net.onnx /app/models/
+COPY src/main/resources/u2net.onnx /app/models/
 
 # 4. Set environment variable
 ENV MODEL_PATH=/app/models/u2net.onnx

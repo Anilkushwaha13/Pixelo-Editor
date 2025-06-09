@@ -35,7 +35,7 @@ public class DownloadController {
         }
     }
 
-    @GetMapping("/ai-download")
+    @PostMapping("/ai-download")
     public ResponseEntity<?> getDownloadAndUpdate(@RequestBody ImageDownSaveRequest request, @RequestParam String email, HttpServletRequest req) {
         String authHeader = req.getHeader("Authorization");
         if (authHeader ==null  || !authHeader.startsWith("Bearer ")){
