@@ -32,4 +32,12 @@ build/
 ### VS Code ###
 .vscode/
 
+
+
+node_modules
+frontend/
+target/
+*.iml
+*.log
+
 src/main/resources/u2net.onnx
