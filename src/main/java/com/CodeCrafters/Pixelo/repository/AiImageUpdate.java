@@ -52,15 +52,15 @@ public class AiImageUpdate {
     public ArrayList<BufferedImage> getAiImage(int req){
         Connection con = null;
         PreparedStatement stat = null;
-        int image = 10;
-        int offset = req * image;
+//        int image = 10;
+//        int offset = req * image;
         ArrayList<BufferedImage> list = new ArrayList<>();
         try {
             con = dataSource.getConnection();
-            String sql = "SELECT * FROM imageai limit ? offset ?;";
+            String sql = "SELECT FROM imageai order by time desc limit 12;";
             stat = con.prepareStatement(sql);
-            stat.setInt(1,image);
-            stat.setInt(2,offset);
+//            stat.setInt(1,image);
+//            stat.setInt(2,offset);
             ResultSet result = stat.executeQuery();
             while (result.next()){
                 byte[] bytes= result.getBytes("imageData");

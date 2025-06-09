@@ -12,13 +12,15 @@ import java.util.Collections;
 public class RembgJava {
 
     public static BufferedImage getBgRemoved(BufferedImage inputImage) throws  Exception{
-        String modelPath = "src/main/resources/u2net.onnx";
+        String modelPath = System.getenv("MODEL_PATH");
+        if (modelPath == null) {
+            modelPath = "src/main/resources/u2net.onnx"; // Default local path
+        }
         BufferedImage resized = resizeTo320x320(inputImage); // Resize to 320x320
         float[] inputTensorData = convertImageToTensor(resized); // Convert to NCHW float[]
 
         try (OrtEnvironment env = OrtEnvironment.getEnvironment();
              OrtSession session = env.createSession(modelPath, new OrtSession.SessionOptions())) {
-
             long[] shape = new long[]{1, 3, 320, 320}; // NCHW
             OnnxTensor inputTensor = OnnxTensor.createTensor(env, FloatBuffer.wrap(inputTensorData), shape);
 
