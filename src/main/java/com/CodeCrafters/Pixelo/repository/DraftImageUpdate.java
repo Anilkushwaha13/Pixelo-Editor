@@ -24,7 +24,7 @@ public class DraftImageUpdate {
         PreparedStatement stat = null;
         try{
             con = dataSource.getConnection();
-            String sql1 = "SELECT  COUNT(*) count  FROM draftimage where email = ?";
+            String sql1 = "SELECT  COUNT(*) count  FROM draftImage where email = ?";
             stat = con.prepareStatement(sql1);
             stat.setString(1,userName);
             ResultSet rs = stat.executeQuery();

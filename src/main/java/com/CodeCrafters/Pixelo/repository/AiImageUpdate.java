@@ -57,7 +57,7 @@ public class AiImageUpdate {
         ArrayList<BufferedImage> list = new ArrayList<>();
         try {
             con = dataSource.getConnection();
-            String sql = "SELECT FROM imageai order by time desc limit 12;";
+            String sql = "SELECT * FROM imageai order by time desc limit 12; ";
             stat = con.prepareStatement(sql);
 //            stat.setInt(1,image);
 //            stat.setInt(2,offset);
