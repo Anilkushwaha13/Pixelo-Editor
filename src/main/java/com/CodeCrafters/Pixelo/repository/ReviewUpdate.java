@@ -18,7 +18,7 @@ public class ReviewUpdate {
     @Autowired
     private DataSource dataSource;
 
-    public boolean Review(String email, Double rating,String summ,String loca){
+    public boolean Review(String email, Double rating,String summ,String city){
         Connection con = null;
         PreparedStatement stat = null;
         try{
@@ -30,7 +30,7 @@ public class ReviewUpdate {
                 stat.setString(1, email);
                 stat.setDouble(2, rating);
                 stat.setString(3, summ);
-                stat.setString(4, loca);
+                stat.setString(4, city);
                 stat.setString(5, String.valueOf(new Timestamp(System.currentTimeMillis())));
                 int result = stat.executeUpdate();
                    if (result == 1){
@@ -63,14 +63,16 @@ public class ReviewUpdate {
             ResultSet result = stat.executeQuery();
             while (result.next()){
                 String name= result.getString("name");
+                String email= result.getString("email");
                 String summary= result.getString("summary");
-                String location= result.getString("location");
+                String city= result.getString("city");
                 double rate= result.getDouble("rating");
                 Map<String,String> review= new HashMap<>();
                 review.put("name",name);
                 review.put("summary",summary);
-                review.put("location",location);
+                review.put("city",city);
                 review.put("rating",Double.toString(rate));
+                review.put("email",email);
                 list.add(review);
             }
         } catch (Exception e) {

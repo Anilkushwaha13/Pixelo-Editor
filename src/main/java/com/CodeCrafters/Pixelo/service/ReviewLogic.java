@@ -15,9 +15,9 @@ public class ReviewLogic {
     @Autowired
     ReviewUpdate reviewUpdate;
 
-    public  boolean review(String email, double rating, String summ,String loca){
+    public  boolean review(String email, double rating, String summ,String city){
         try {
-            boolean bol = reviewUpdate.Review(email,rating,summ,loca);
+            boolean bol = reviewUpdate.Review(email,rating,summ,city);
             return bol;
         } catch (Exception e) {
             throw new RuntimeException(e);

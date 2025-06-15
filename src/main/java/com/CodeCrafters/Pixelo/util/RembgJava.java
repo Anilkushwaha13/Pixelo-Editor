@@ -6,38 +6,40 @@ import ai.onnxruntime.OrtSession;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.util.Collections;
 
 public class RembgJava {
 
     public static BufferedImage getBgRemoved(BufferedImage inputImage) throws  Exception{
-        String modelPath = System.getenv("MODEL_PATH");
-        if (modelPath == null) {
-            modelPath = "src/main/resources/u2net.onnx"; // Default local path
-        }
-        BufferedImage resized = resizeTo320x320(inputImage); // Resize to 320x320
-        float[] inputTensorData = convertImageToTensor(resized); // Convert to NCHW float[]
+       try(InputStream modelStream = RembgJava.class.getClassLoader().getResourceAsStream("u2net.onnx");) {
+           if (modelStream == null) {
+               throw new RuntimeException("no model was found");
+           }
+           BufferedImage resized = resizeTo320x320(inputImage); // Resize to 320x320
+           float[] inputTensorData = convertImageToTensor(resized); // Convert to NCHW float[]
 
-        try (OrtEnvironment env = OrtEnvironment.getEnvironment();
-             OrtSession session = env.createSession(modelPath, new OrtSession.SessionOptions())) {
-            long[] shape = new long[]{1, 3, 320, 320}; // NCHW
-            OnnxTensor inputTensor = OnnxTensor.createTensor(env, FloatBuffer.wrap(inputTensorData), shape);
+           try (OrtEnvironment env = OrtEnvironment.getEnvironment();
+                OrtSession session = env.createSession(modelStream.readAllBytes(), new OrtSession.SessionOptions())) {
+               long[] shape = new long[]{1, 3, 320, 320}; // NCHW
+               OnnxTensor inputTensor = OnnxTensor.createTensor(env, FloatBuffer.wrap(inputTensorData), shape);
 
-            // Use the correct input name as per the model's definition
-            OrtSession.Result result = session.run(Collections.singletonMap("input.1", inputTensor)); // Updated to "input.1"
+               // Use the correct input name as per the model's definition
+               OrtSession.Result result = session.run(Collections.singletonMap("input.1", inputTensor)); // Updated to "input.1"
 
-            // Get output mask (4D array)
-            float[][][][] output = (float[][][][]) result.get(0).getValue(); // 4D output
+               // Get output mask (4D array)
+               float[][][][] output = (float[][][][]) result.get(0).getValue(); // 4D output
 
-            // Extract the 2D mask (320x320) from the 4D array
-            float[][] reshapedMask = output[0][0];
-            // Access first channel (only one channel in U-2-Net)
+               // Extract the 2D mask (320x320) from the 4D array
+               float[][] reshapedMask = output[0][0];
+               // Access first channel (only one channel in U-2-Net)
 
-            // Apply alpha mask to image
-            BufferedImage finalImage = applyAlphaMask(inputImage, sclaedMask(reshapedMask,inputImage.getHeight(),inputImage.getWidth()));
-            return finalImage;
-        }
+               // Apply alpha mask to image
+               BufferedImage finalImage = applyAlphaMask(inputImage, sclaedMask(reshapedMask, inputImage.getHeight(), inputImage.getWidth()));
+               return finalImage;
+           }
+       }
     }
     private static float[][] sclaedMask(float[][] reshapedMask, int originHeight, int originWidth) {
         int height = reshapedMask.length;

@@ -5,13 +5,13 @@ FROM openjdk:17-jdk-slim as build
 WORKDIR /app
 
 # 1. Create models directory
-RUN mkdir -p /app/models
+#RUN mkdir -p /app/models
 
 # 2. Copy ONLY the model file (not in JAR)
-COPY src/main/resources/u2net.onnx /app/models/
+#COPY src/main/resources/u2net.onnx /app/models/
 
 # 4. Set environment variable
-ENV MODEL_PATH=/app/models/u2net.onnx
+#ENV MODEL_PATH=/app/models/u2net.onnx
 
 # Copy the built Spring Boot JAR (assumes it's already built)
 COPY target/*.jar app.jar
