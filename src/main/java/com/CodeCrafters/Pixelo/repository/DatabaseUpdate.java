@@ -7,10 +7,7 @@ import org.springframework.stereotype.Repository;
 
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 
 @Repository
 public class DatabaseUpdate {
@@ -78,4 +75,62 @@ public class DatabaseUpdate {
             }
         }
     }
+
+    public Boolean getPassChange(String email ,String password){
+        Connection con = null;
+        PreparedStatement input = null;
+        try{
+            con = dataSource.getConnection();
+            String sql = "Update  appuser set password= Where email=?";
+            input = con.prepareStatement(sql);
+            input.setString(1,PasswordEncrypter.hashPassword(password));
+            input.setString(2,email);
+
+            int result = input.executeUpdate();
+
+            if(result != 0){
+                return true;
+            }
+            else return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                input.close();
+                con.close();
+            } catch (Exception e) {
+                System.out.println("error:" +e);
+            }
+        }
+    }
+
+    public Boolean getUser(String email ){
+        Connection con = null;
+        PreparedStatement input = null;
+        try{
+            con = dataSource.getConnection();
+            String sql = "Select * From appuserWhere email=?";
+            input = con.prepareStatement(sql);
+            input.setString(1,email);
+
+            ResultSet result = input.executeQuery();
+
+            if(result.next()){
+                return true;
+            }
+            else return false;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                input.close();
+                con.close();
+            } catch (Exception e) {
+                System.out.println("error:" +e);
+            }
+        }
+    }
+
 }

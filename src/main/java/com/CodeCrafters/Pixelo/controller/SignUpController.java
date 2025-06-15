@@ -41,7 +41,6 @@ public class SignUpController {
         if (tokenChecker.validateToken(email, token)) {
             Boolean registration = databaseUpdate.getUpdate(email, name);
                 return ResponseEntity.ok()
-                        .header("Change","Successful")
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(registration);
             }
@@ -49,6 +48,12 @@ public class SignUpController {
             return ResponseEntity.badRequest()
                     .body(false);
         }
+    }
 
+    @PutMapping("/reset")
+    public ResponseEntity<?> changePassword(@RequestParam String email, String password){
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(databaseUpdate.getPassChange(email,password));
     }
 }

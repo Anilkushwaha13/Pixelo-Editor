@@ -1,5 +1,6 @@
 package com.CodeCrafters.Pixelo.controller;
 
+import com.CodeCrafters.Pixelo.repository.DatabaseUpdate;
 import com.CodeCrafters.Pixelo.service.EmailLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,11 @@ public class OtpController {
 
     @Autowired
     EmailLogic emailLogic;
-    @GetMapping
+
+    @Autowired
+    DatabaseUpdate databaseUpdate;
+
+    @GetMapping("/send")
     public ResponseEntity<?> sendOtp(@RequestParam String email){
         int num = emailLogic.sendOtp(email);
         if(num==0){
@@ -26,6 +31,11 @@ public class OtpController {
                     .body(num);
         }
 
+    }
+
+    public ResponseEntity<?> verifyEmail(@RequestParam String email){
+        return ResponseEntity.ok()
+                .body(databaseUpdate.getUser(email));
     }
 
 }
