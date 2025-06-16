@@ -110,7 +110,7 @@ public class DatabaseUpdate {
         PreparedStatement input = null;
         try{
             con = dataSource.getConnection();
-            String sql = "Select * From appuserWhere email=?";
+            String sql = "Select * From appuser Where email=?";
             input = con.prepareStatement(sql);
             input.setString(1,email);
 

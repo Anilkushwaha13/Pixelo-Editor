@@ -55,9 +55,9 @@ public class ReviewUpdate {
         List<Map<String,String>> list = new ArrayList<>();
         try {
             con = dataSource.getConnection();
-            String sql = "SELECT ir.*, au.name" +
-                    "FROM imageReview ir" +
-                    "JOIN appuser au ON ir.email = au.email" +
+            String sql = "SELECT ir.*, au.name " +
+                    "FROM imageReview ir " +
+                    "JOIN appuser au ON ir.email = au.email " +
                     "ORDER BY ir.time DESC;";
             stat = con.prepareStatement(sql);
             ResultSet result = stat.executeQuery();

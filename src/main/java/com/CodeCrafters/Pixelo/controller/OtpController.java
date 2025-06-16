@@ -33,6 +33,7 @@ public class OtpController {
 
     }
 
+    @GetMapping("/verify")
     public ResponseEntity<?> verifyEmail(@RequestParam String email){
         return ResponseEntity.ok()
                 .body(databaseUpdate.getUser(email));
